@@ -66,16 +66,29 @@ public class GlobalMemoryAnalyzer implements MayflyAnalyzer {
         else if (e instanceof IterationCompleted completedEvent) {
             double currentGbest = completedEvent.gbestFitness();
 
-            // One trajectory entry per iteration with the gbest value at iteration end
             gbestTrajectory.add(String.format("%d,%.10f", currentIteration, currentGbest));
 
-            // Stagnation evaluation: strictly no improvement (delta == 0.0)
-            if (currentGbest == lastGbestAtIterEnd) {
-                currentStagnationLength++;
+            if (!epsilonReached && currentGbest <= epsilon) {
+                if (totalGbestUpdates == 0) {
+                    firstHittingIter = 0;
+                } else {
+                    firstHittingIter = currentIteration;
+                }
+                epsilonReached = true;
+            }
+
+            if (currentIteration == 1) {
+                if (totalGbestUpdates == 0) {
+                    currentStagnationLength++;
+                }
             } else {
-                if (currentStagnationLength > 0) {
-                    stagnationStreaks.add(currentStagnationLength);
-                    currentStagnationLength = 0;
+                if (currentGbest == lastGbestAtIterEnd) {
+                    currentStagnationLength++;
+                } else {
+                    if (currentStagnationLength > 0) {
+                        stagnationStreaks.add(currentStagnationLength);
+                        currentStagnationLength = 0;
+                    }
                 }
             }
             lastGbestAtIterEnd = currentGbest;
