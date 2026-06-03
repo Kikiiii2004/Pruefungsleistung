@@ -215,6 +215,9 @@ public class MayflyAlgorithm {
             applyMutation(child1, cfg, rng);
             applyMutation(child2, cfg, rng);
 
+            fireEvent(new OffspringCreated(child1));
+            fireEvent(new OffspringCreated(child2));
+
             updateGlobalBest(child1.fitness, child1.pos, gbestFitness, gbestPosition, cfg, UpdateSource.OFFSPRING);
             updateGlobalBest(child2.fitness, child2.pos, gbestFitness, gbestPosition, cfg, UpdateSource.OFFSPRING);
             offspring.add(child1);
@@ -231,6 +234,8 @@ public class MayflyAlgorithm {
         m.fitness = evaluate(m.pos, cfg);
         m.updatePersonalBest();
     }
+
+
 
     // ---------- Helpers ----------
     private double inertiaWeight(int iter, MayflyConfig cfg) {
