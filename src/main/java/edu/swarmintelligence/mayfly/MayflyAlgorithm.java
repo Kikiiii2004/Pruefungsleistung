@@ -72,7 +72,7 @@ public class MayflyAlgorithm {
             survivors.addAll(males);
             survivors.addAll(females);
 
-            fireEvent(new IterationCompleted(iter, gbestFitness[0], survivors));
+            fireEvent(new IterationCompleted(iter, gbestFitness[0], survivors, sortedMales, sortedFemales));
         }
         MayflyResult result = new MayflyResult(gbestPosition, gbestFitness[0]);
         fireEvent(new RunCompleted(result));
