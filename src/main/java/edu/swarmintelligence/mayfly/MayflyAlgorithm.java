@@ -1,11 +1,10 @@
 package edu.swarmintelligence.mayfly;
 
-import edu.swarmintelligence.mayfly.Interfaces.*;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.random.RandomGenerator;
+import java.util.random.RandomGeneratorFactory;
 
 public class MayflyAlgorithm {
     private final List<MayflyEventListener> listeners = new ArrayList<>();
@@ -24,7 +23,7 @@ public class MayflyAlgorithm {
      * Runs the algorithm and returns the best fitness found.
      */
     public MayflyResult run(MayflyConfig cfg, long seed) {
-        RandomGenerator rng = RandomGenerator.of("Xoshiro256PlusPlus");
+        RandomGenerator rng = RandomGeneratorFactory.of("Xoshiro256PlusPlus").create(seed);
 
         double[] gbestPosition = new double[cfg.dimensions()];
         double[] gbestFitness = { Double.POSITIVE_INFINITY };
@@ -33,19 +32,18 @@ public class MayflyAlgorithm {
         List<Mayfly> females = initializePopulation(cfg, rng);
 
         // Synchronous global best from initial populations
-        males.forEach(m -> updateGlobalBest(m.fitness, m.pos, gbestFitness, gbestPosition, cfg));
-        females.forEach(f -> updateGlobalBest(f.fitness, f.pos, gbestFitness, gbestPosition, cfg));
-
-        System.out.printf("Mayfly Algorithm (%d-D) - Initial Best: %.10f%n",
-                cfg.dimensions(), gbestFitness);
+        males.forEach(m -> updateGlobalBest(m.fitness, m.pos, gbestFitness, gbestPosition, cfg, null));
+        females.forEach(f -> updateGlobalBest(f.fitness, f.pos, gbestFitness, gbestPosition, cfg, null));
 
         Comparator<Mayfly> byFitness = Comparator.comparingDouble(m -> m.fitness);
 
         for (int iter = 1; iter <= cfg.maxIterations(); iter++) {
             double w = inertiaWeight(iter, cfg);
 
+            fireEvent(new IterationStarted(iter, w));
+
             // ----- 1. Male movement (synchronous) -----
-            moveMales(males, inertiaWeight(iter, cfg), cfg, rng, gbestPosition, gbestFitness);
+            moveMales(males, w, cfg, rng, gbestPosition, gbestFitness);
 
             // Re‑rank males for female movement and mating
             List<Mayfly> sortedMales = sortByFitness(males);
@@ -70,12 +68,16 @@ public class MayflyAlgorithm {
             males = new ArrayList<>(pool.subList(0, cfg.populationSize()));
             females = new ArrayList<>(pool.subList(cfg.populationSize(), 2 * cfg.populationSize()));
 
-            if (iter % 100 == 0 || iter == cfg.maxIterations()) {
-                System.out.printf("Iter %4d | Best Fitness: %.10f%n", iter, gbestFitness);
-            }
-        }
-            return new MayflyResult(gbestPosition, gbestFitness);
+            List<Mayfly> survivors = new ArrayList<>();
+            survivors.addAll(males);
+            survivors.addAll(females);
 
+            fireEvent(new IterationCompleted(iter, gbestFitness[0], survivors));
+        }
+        MayflyResult result = new MayflyResult(gbestPosition, gbestFitness[0]);
+        fireEvent(new RunCompleted(result));
+
+        return result;
     }
 
             // ---------- Initialization ----------
@@ -123,11 +125,22 @@ public class MayflyAlgorithm {
         // Apply and evaluate
         for (int i = 0; i < males.size(); i++) {
             Mayfly male = males.get(i);
+            double prevFitness = male.fitness;
+            boolean isDance = (male == bestMale);
+
             System.arraycopy(newPos[i], 0, male.pos, 0, cfg.dimensions());
             System.arraycopy(newVel[i], 0, male.vel, 0, cfg.dimensions());
             male.fitness = evaluate(male.pos, cfg);
+
+            fireEvent(new MaleUpdated(male, isDance, prevFitness));
+
+            double prevPbest = male.pbestFitness;
             male.updatePersonalBest();
-            updateGlobalBest(male.fitness, male.pos, gbestFitness, gbestPosition, cfg );
+            if (male.pbestFitness < prevPbest) {
+                fireEvent(new PbestUpdated(male, prevPbest, male.pbestFitness));
+            }
+
+            updateGlobalBest(male.fitness, male.pos, gbestFitness, gbestPosition, cfg, UpdateSource.MALE);
         }
     }
 
@@ -160,11 +173,24 @@ public class MayflyAlgorithm {
 
         for (int i = 0; i < cfg.populationSize(); i++) {
             Mayfly female = sortedFemales.get(i);
+            double previousFitness = female.fitness;
+
+            Mayfly male = sortedMales.get(i);
+            boolean isAttracted =male.fitness < female.fitness;
+
             System.arraycopy(newPos[i], 0, female.pos, 0, cfg.dimensions());
             System.arraycopy(newVel[i], 0, female.vel, 0, cfg.dimensions());
             female.fitness = evaluate(female.pos, cfg);
+
+            fireEvent(new FemaleUpdated(female, isAttracted, previousFitness));
+
+            double prevPbest = female.pbestFitness;
             female.updatePersonalBest();
-            updateGlobalBest(female.fitness, female.pos, gbestFitness, gbestPosition, cfg);
+            if (female.pbestFitness < prevPbest) {
+                fireEvent(new PbestUpdated(female, prevPbest, female.pbestFitness));
+            }
+
+            updateGlobalBest(female.fitness, female.pos, gbestFitness, gbestPosition, cfg, UpdateSource.FEMALE);
         }
     }
 
@@ -189,8 +215,8 @@ public class MayflyAlgorithm {
             applyMutation(child1, cfg, rng);
             applyMutation(child2, cfg, rng);
 
-            updateGlobalBest(child1.fitness, child1.pos, gbestFitness, gbestPosition, cfg);
-            updateGlobalBest(child2.fitness, child2.pos, gbestFitness, gbestPosition, cfg);
+            updateGlobalBest(child1.fitness, child1.pos, gbestFitness, gbestPosition, cfg, UpdateSource.OFFSPRING);
+            updateGlobalBest(child2.fitness, child2.pos, gbestFitness, gbestPosition, cfg, UpdateSource.OFFSPRING);
             offspring.add(child1);
             offspring.add(child2);
         }
@@ -234,11 +260,16 @@ public class MayflyAlgorithm {
                 - Math.exp(s2 / cfg.dimensions()) + 20.0 + Math.E;
     }
 
-    private void updateGlobalBest(double fitness, double[] pos, double[] gbestFitness, double[] gbestPosition, MayflyConfig cfg) {
-        if (fitness < gbestFitness[0]) {
+    private void updateGlobalBest(double fitness, double[] pos, double[] gbestFitness, double[] gbestPosition, MayflyConfig cfg, UpdateSource source) {
+        double previousGbest = gbestFitness[0];
+
+        if (fitness < previousGbest) {
             gbestFitness[0] = fitness;
             System.arraycopy(pos, 0, gbestPosition, 0, cfg.dimensions());
-        }
+
+            if (source != null) {
+                fireEvent(new GbestUpdated(source, previousGbest, gbestFitness[0]));
+            }        }
     }
 
     private List<Mayfly> sortByFitness(List<Mayfly> list) {
