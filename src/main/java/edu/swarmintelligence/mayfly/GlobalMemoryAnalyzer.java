@@ -17,7 +17,7 @@ public class GlobalMemoryAnalyzer implements MayflyAnalyzer {
     private boolean epsilonReached = false;
 
     // Tracking structures
-    private final List<String> gbestTrajectory = new ArrayList<>();
+    private final List<GbestTrajectoryPoint> gbestTrajectory = new ArrayList<>();
     private final Map<UpdateSource, Long> sourceCounts = new EnumMap<>(UpdateSource.class);
     private final Map<Integer, Double> improvementDelta = new LinkedHashMap<>();
 
@@ -66,7 +66,7 @@ public class GlobalMemoryAnalyzer implements MayflyAnalyzer {
         else if (e instanceof IterationCompleted completedEvent) {
             double currentGbest = completedEvent.gbestFitness();
 
-            gbestTrajectory.add(String.format("%d,%.10f", currentIteration, currentGbest));
+            gbestTrajectory.add(new GbestTrajectoryPoint(currentIteration, currentGbest));
 
             if (!epsilonReached && currentGbest <= epsilon) {
                 if (totalGbestUpdates == 0) {

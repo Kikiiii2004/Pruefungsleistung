@@ -6,4 +6,9 @@ public record MayflyResult(double[] gbestPosition, double gbestFitness) {
             gbestPosition = gbestPosition.clone();
         }
     }
+
+    @Override
+    public double[] gbestPosition() {
+        return gbestPosition == null ? null : gbestPosition.clone();
+    }
 }

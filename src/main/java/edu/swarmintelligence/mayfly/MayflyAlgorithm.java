@@ -176,7 +176,7 @@ public class MayflyAlgorithm {
             double previousFitness = female.fitness;
 
             Mayfly male = sortedMales.get(i);
-            boolean isAttracted =male.fitness < female.fitness;
+            boolean isAttracted = male.fitness < female.fitness;
 
             System.arraycopy(newPos[i], 0, female.pos, 0, cfg.dimensions());
             System.arraycopy(newVel[i], 0, female.vel, 0, cfg.dimensions());

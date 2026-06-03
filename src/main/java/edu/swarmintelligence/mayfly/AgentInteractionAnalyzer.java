@@ -1,6 +1,5 @@
 package edu.swarmintelligence.mayfly;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +10,8 @@ public class AgentInteractionAnalyzer implements MayflyAnalyzer {
     private long nuptialDanceCount = 0;
     private long maleAttractionCount = 0;
 
-    private final Map<Integer, Long> femaleAttractionsPerIter = new HashMap<>();
-    private final Map<Integer, Long> femaleTotalUpdatesPerIter = new HashMap<>();
+    private final Map<Integer, Long> femaleAttractionsPerIter = new LinkedHashMap<>();
+    private final Map<Integer, Long> femaleTotalUpdatesPerIter = new LinkedHashMap<>();
 
     private final Map<Integer, Double> meanPairDistance = new LinkedHashMap<>();
     private final Map<Integer, Double> pairFitnessGap = new LinkedHashMap<>();

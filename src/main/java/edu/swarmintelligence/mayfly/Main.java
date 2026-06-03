@@ -6,20 +6,22 @@ public class Main {
         MayflyConfig cfg = MayflyConfig.ackley10D();
         MayflyAlgorithm algo = new MayflyAlgorithm();
 
-        // 1. Initialize the Analytics Engine
+        // 1. Analytics Engine
         AnalyticsEngine engine = new AnalyticsEngine();
 
-        // 2. Register concrete analyzers here once implemented, e.g.:
-        // engine.registerAnalyzer(new GbestTrajectoryAnalyzer());
+        // 2. Analyzer registrieren
+        double epsilon = 1e-8; // Schwellwert für firstHittingIteration
+        engine.registerAnalyzer(new AgentInteractionAnalyzer());
+        engine.registerAnalyzer(new GlobalMemoryAnalyzer(epsilon));
 
-        // 3. Attach the engine as a listener to the algorithm
+        // 3. Engine als Listener anhängen
         algo.addListener(engine);
 
-        // 4. Run the optimization process
+        // 4. Optimierung ausführen
         MayflyResult runResult = algo.run(cfg, seed);
         System.out.printf("Optimization Finished. Global Best Fitness: %.10f%n", runResult.gbestFitness());
 
-        // 5. Generate and evaluate the telemetry report
+        // 5. Report erzeugen
         AnalyticsReport report = engine.generateReport(cfg, seed);
         System.out.println("Analytics Report generated at: " + report.generatedAt());
         System.out.println("Analyzers executed: " + report.byAnalyzer().keySet());
