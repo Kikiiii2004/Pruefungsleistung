@@ -74,13 +74,12 @@ public class ConvergenceAnalyzer implements MayflyAnalyzer {
 
     @Override
     public AnalyzerResult result() {
-        // Metric 3: iterationsToThreshold(epsilon) with NormalizedVelocity (Delta t / total iterations)
         Map<String, Double> thresholdMetrics = new LinkedHashMap<>();
-        thresholdMetrics.put("Iterations", (double) hittingIteration);
+        thresholdMetrics.put("Iterations", thresholdReached ? (double) hittingIteration : Double.NaN);
 
         int totalIterations = gbestHistory.size();
         double velocity = thresholdReached ? (double) hittingIteration / totalIterations : -1.0;
-        thresholdMetrics.put("NormalizedVelocity", velocity);
+        thresholdMetrics.put("NormalizedVelocity", thresholdReached ? (double) hittingIteration / totalIterations : Double.NaN);
 
         // Metric 5: convergenceRateEstimate (Linear Fit on log(gbest))
         double fitSlope = calculateLinearLogFit();

@@ -43,8 +43,6 @@ public class GlobalMemoryAnalyzer implements MayflyAnalyzer {
     public void onEvent(MayflyEvent e) {
         if (e instanceof IterationStarted startEvent) {
             currentIteration = startEvent.iteration();
-            // Ensure every iteration has a default delta of 0.0
-            improvementDelta.put(currentIteration, 0.0);
         }
         else if (e instanceof GbestUpdated gbestEvent) {
             totalGbestUpdates++;
@@ -52,10 +50,6 @@ public class GlobalMemoryAnalyzer implements MayflyAnalyzer {
             if (source != null) {
                 sourceCounts.put(source, sourceCounts.get(source) + 1);
             }
-
-            // Accumulate improvement delta within the current iteration
-            double delta = gbestEvent.previousGbestFitness() - gbestEvent.newGbestFitness();
-            improvementDelta.put(currentIteration, improvementDelta.get(currentIteration) + delta);
 
             // Check first hitting condition (gbest <= epsilon)
             if (!epsilonReached && gbestEvent.newGbestFitness() <= epsilon) {
@@ -68,27 +62,14 @@ public class GlobalMemoryAnalyzer implements MayflyAnalyzer {
 
             gbestTrajectory.add(new GbestTrajectoryPoint(currentIteration, currentGbest));
 
-            if (!epsilonReached && currentGbest <= epsilon) {
-                if (totalGbestUpdates == 0) {
-                    firstHittingIter = 0;
-                } else {
-                    firstHittingIter = currentIteration;
-                }
-                epsilonReached = true;
-            }
+            improvementDelta.put(currentIteration, lastGbestAtIterEnd - currentGbest);
 
-            if (currentIteration == 1) {
-                if (totalGbestUpdates == 0) {
-                    currentStagnationLength++;
-                }
+            if (currentGbest == lastGbestAtIterEnd) {
+                currentStagnationLength++;
             } else {
-                if (currentGbest == lastGbestAtIterEnd) {
-                    currentStagnationLength++;
-                } else {
-                    if (currentStagnationLength > 0) {
-                        stagnationStreaks.add(currentStagnationLength);
-                        currentStagnationLength = 0;
-                    }
+                if (currentStagnationLength > 0) {
+                    stagnationStreaks.add(currentStagnationLength);
+                    currentStagnationLength = 0;
                 }
             }
             lastGbestAtIterEnd = currentGbest;
