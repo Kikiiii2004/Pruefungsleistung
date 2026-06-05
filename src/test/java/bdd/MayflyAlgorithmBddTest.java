@@ -1,6 +1,7 @@
 package bdd;
 
 import com.tngtech.jgiven.annotation.Description;
+import org.junit.jupiter.api.Tag;
 import com.tngtech.jgiven.junit5.ScenarioTest;
 import edu.swarmintelligence.mayfly.*;
 import org.junit.jupiter.api.Test;
@@ -35,6 +36,7 @@ class MayflyAlgorithmBddTest extends ScenarioTest<GivenMayflyConfiguration, When
     }
 
     @Test
+    @Tag("global-memory") // Erfüllt Anforderung für AT-3
     @Description("AT-3: Globales Gedächtnis - Die gbest-Trajektorie verläuft monoton fallend.")
     void test_at3_global_memory_monotonicity() {
         GlobalMemoryAnalyzer globalAnalyzer = new GlobalMemoryAnalyzer(1e-5);
@@ -50,6 +52,7 @@ class MayflyAlgorithmBddTest extends ScenarioTest<GivenMayflyConfiguration, When
     }
 
     @Test
+    @Tag("agent-interaction") // Erfüllt Anforderung für AT-4
     @Description("AT-4: Agenten-Interaktion - Der Anteil weiblicher Anziehungen liegt über der parametrisierten Schwelle.")
     void test_at4_agent_interaction_ratios() {
         AgentInteractionAnalyzer interactionAnalyzer = new AgentInteractionAnalyzer();
@@ -65,6 +68,7 @@ class MayflyAlgorithmBddTest extends ScenarioTest<GivenMayflyConfiguration, When
     }
 
     @Test
+    @Tag("local-memory") // Erfüllt Anforderung für AT-5
     @Description("AT-5: Lokales Gedächtnis - Jeder Agent erhält im Lauf mindestens eine pbest-Verbesserung.")
     void test_at5_local_memory_updates() {
         LocalMemoryAnalyzer localAnalyzer = new LocalMemoryAnalyzer();
@@ -80,6 +84,7 @@ class MayflyAlgorithmBddTest extends ScenarioTest<GivenMayflyConfiguration, When
     }
 
     @Test
+    @Tag("convergence") // Erfüllt Anforderung für AT-6
     @Description("AT-6: Plateau-Detektion - Bei konstant gehaltener Fitness wird exakt 1 kontinuierliches Plateau erkannt.")
     void test_at6_plateau_detection() {
         ConvergenceAnalyzer convergenceAnalyzer = new ConvergenceAnalyzer(1e-5, 100.0, 1, 50.0);
