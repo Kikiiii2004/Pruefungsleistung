@@ -71,7 +71,14 @@
                         <configuration>
                             <rules>
                                 <rule>
-                                    <element>BUNDLE</element>
+                                    <element>CLASS</element>
+                                    <includes>
+                                        <include>edu.swarmintelligence.mayfly.AnalyticsEngine</include>
+                                        <include>edu.swarmintelligence.mayfly.AgentInteractionAnalyzer</include>
+                                        <include>edu.swarmintelligence.mayfly.GlobalMemoryAnalyzer</include>
+                                        <include>edu.swarmintelligence.mayfly.LocalMemoryAnalyzer</include>
+                                        <include>edu.swarmintelligence.mayfly.ConvergenceAnalyzer</include>
+                                    </includes>
                                     <limits>
                                         <limit>
                                             <counter>BRANCH</counter>

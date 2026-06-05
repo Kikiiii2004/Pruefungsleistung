@@ -44,8 +44,8 @@ public class LocalMemoryAnalyzer implements MayflyAnalyzer {
             double oldPbest = pbestEvent.previousPbestFitness();
             double newPbest = pbestEvent.newPbestFitness();
 
-            if (oldPbest != Double.POSITIVE_INFINITY && oldPbest != 0.0) {
-                double relativeImprovement = (oldPbest - newPbest) / oldPbest;
+            if (Double.isFinite(oldPbest) && oldPbest != 0.0) {
+                double relativeImprovement = (oldPbest - newPbest) / Math.abs(oldPbest);
                 totalRelativeImprovement += relativeImprovement;
                 validImprovementUpdatesCount++;
             }

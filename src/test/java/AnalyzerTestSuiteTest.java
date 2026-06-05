@@ -311,7 +311,7 @@ class AnalyzerTestSuiteTest {
             analyzer.onEvent(new PbestUpdated(agent, -2.0, -4.0));
 
             LocalMemoryResult res = (LocalMemoryResult) analyzer.result();
-            assertThat(res.meanPbestImprovement()).isEqualTo(-1.0);
+            assertThat(res.meanPbestImprovement()).isEqualTo(1.0);
         }
     }
 
