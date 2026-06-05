@@ -1,0 +1,942 @@
+{
+  "className": "bdd.MayflyAlgorithmBddTest",
+  "name": "Mayfly Optimization Acceptance Criteria (BDD Suite)",
+  "scenarios": [
+    {
+      "className": "bdd.MayflyAlgorithmBddTest",
+      "testMethodName": "test_at3_global_memory_monotonicity",
+      "description": "AT-3: Globales Gedächtnis - Die gbest-Trajektorie verläuft monoton fallend.",
+      "tagIds": [
+        "org.junit.jupiter.api.Tag-global-memory"
+      ],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a standard mayfly algorithm instance",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a standard mayfly algorithm instance"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 6924200,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the default ackley 10d configuration",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the default ackley 10d configuration"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 115300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "an analytics engine with registered analyzers",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an analytics engine with registered analyzers"
+                },
+                {
+                  "value": "edu.swarmintelligence.mayfly.GlobalMemoryAnalyzer@797501a",
+                  "argumentInfo": {
+                    "argumentName": "analyzers",
+                    "formattedValue": "edu.swarmintelligence.mayfly.GlobalMemoryAnalyzer@797501a"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 4013700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a fixed random seed of",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a fixed random seed of"
+                },
+                {
+                  "value": "42",
+                  "argumentInfo": {
+                    "argumentName": "seed",
+                    "formattedValue": "42"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 714300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the algorithm is executed with the configured seed",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the algorithm is executed with the configured seed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 144497500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the gbest trajectory must be strictly monotonically non increasing",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the gbest trajectory must be strictly monotonically non increasing"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 31387100,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 215754700
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 215754700
+    },
+    {
+      "className": "bdd.MayflyAlgorithmBddTest",
+      "testMethodName": "test_at6_plateau_detection",
+      "description": "AT-6: Plateau-Detektion - Bei konstant gehaltener Fitness wird exakt 1 kontinuierliches Plateau erkannt.",
+      "tagIds": [
+        "org.junit.jupiter.api.Tag-convergence"
+      ],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a standard mayfly algorithm instance",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a standard mayfly algorithm instance"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 110200,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the default ackley 10d configuration",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the default ackley 10d configuration"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 43300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "an analytics engine with registered analyzers",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an analytics engine with registered analyzers"
+                },
+                {
+                  "value": "edu.swarmintelligence.mayfly.ConvergenceAnalyzer@30272916",
+                  "argumentInfo": {
+                    "argumentName": "analyzers",
+                    "formattedValue": "edu.swarmintelligence.mayfly.ConvergenceAnalyzer@30272916"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1399400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a fixed random seed of",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a fixed random seed of"
+                },
+                {
+                  "value": "42",
+                  "argumentInfo": {
+                    "argumentName": "seed",
+                    "formattedValue": "42"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 830500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the algorithm is executed with the configured seed",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the algorithm is executed with the configured seed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 215230500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "exactly one plateau segment must be detected",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "exactly one plateau segment must be detected"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 7172800,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 228352900
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 228352900
+    },
+    {
+      "className": "bdd.MayflyAlgorithmBddTest",
+      "testMethodName": "test_at7_multi_run_statistical_stability",
+      "description": "AT-7: Multi-Run-Stabilität - Aggregiert 10 Läufe mit verschiedenen Seeds und validiert, dass Mittelwert und Standardabweichung innerhalb stabiler Grenzen verbleiben.",
+      "tagIds": [
+        "org.junit.jupiter.api.Tag-convergence"
+      ],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a standard mayfly algorithm instance",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a standard mayfly algorithm instance"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 97000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the default ackley 10d configuration",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the default ackley 10d configuration"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 43300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a list of distinct random seeds",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a list of distinct random seeds"
+                },
+                {
+                  "value": "10",
+                  "argumentInfo": {
+                    "argumentName": "count",
+                    "formattedValue": "10"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1155700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the algorithm is executed for all provided seeds",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the algorithm is executed for all provided seeds"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 651040000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the fitness mean and standard deviation must be within boundaries",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the fitness mean and standard deviation must be within boundaries"
+                },
+                {
+                  "value": "0.01",
+                  "argumentInfo": {
+                    "argumentName": "maxExpectedMean",
+                    "formattedValue": "0.01"
+                  }
+                },
+                {
+                  "value": "0.005",
+                  "argumentInfo": {
+                    "argumentName": "maxExpectedStdDev",
+                    "formattedValue": "0.005"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 3429900,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 657303800
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 657303800
+    },
+    {
+      "className": "bdd.MayflyAlgorithmBddTest",
+      "testMethodName": "test_at2_convergence_bounds",
+      "description": "AT-2: Konvergenz - Ackley(gbest) liegt nach 1000 Iterationen unter der Schranke von 1.0e-3.",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a standard mayfly algorithm instance",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a standard mayfly algorithm instance"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 86900,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the default ackley 10d configuration",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the default ackley 10d configuration"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 31700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a fixed random seed of",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a fixed random seed of"
+                },
+                {
+                  "value": "42",
+                  "argumentInfo": {
+                    "argumentName": "seed",
+                    "formattedValue": "42"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1046100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the algorithm is executed with the configured seed",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the algorithm is executed with the configured seed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 38407300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the final gbest fitness must be strictly below",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the final gbest fitness must be strictly below"
+                },
+                {
+                  "value": "0.001",
+                  "argumentInfo": {
+                    "argumentName": "threshold",
+                    "formattedValue": "0.001"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 847700,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 41435500
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 41435500
+    },
+    {
+      "className": "bdd.MayflyAlgorithmBddTest",
+      "testMethodName": "test_at4_agent_interaction_ratios",
+      "description": "AT-4: Agenten-Interaktion - Der Anteil weiblicher Anziehungen liegt über der parametrisierten Schwelle.",
+      "tagIds": [
+        "org.junit.jupiter.api.Tag-agent-interaction"
+      ],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a standard mayfly algorithm instance",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a standard mayfly algorithm instance"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 60300,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the default ackley 10d configuration",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the default ackley 10d configuration"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 16500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "an analytics engine with registered analyzers",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an analytics engine with registered analyzers"
+                },
+                {
+                  "value": "edu.swarmintelligence.mayfly.AgentInteractionAnalyzer@2c0f7678",
+                  "argumentInfo": {
+                    "argumentName": "analyzers",
+                    "formattedValue": "edu.swarmintelligence.mayfly.AgentInteractionAnalyzer@2c0f7678"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 704800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a fixed random seed of",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a fixed random seed of"
+                },
+                {
+                  "value": "42",
+                  "argumentInfo": {
+                    "argumentName": "seed",
+                    "formattedValue": "42"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 467800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the algorithm is executed with the configured seed",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the algorithm is executed with the configured seed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 120634000,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the female attraction rate per iteration must exceed threshold",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the female attraction rate per iteration must exceed threshold"
+                },
+                {
+                  "value": "0.0",
+                  "argumentInfo": {
+                    "argumentName": "minThreshold",
+                    "formattedValue": "0.0"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 2351700,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 126148000
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 126148000
+    },
+    {
+      "className": "bdd.MayflyAlgorithmBddTest",
+      "testMethodName": "test_at5_local_memory_updates",
+      "description": "AT-5: Lokales Gedächtnis - Jeder Agent erhält im Lauf mindestens eine pbest-Verbesserung.",
+      "tagIds": [
+        "org.junit.jupiter.api.Tag-local-memory"
+      ],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a standard mayfly algorithm instance",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a standard mayfly algorithm instance"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 84900,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the default ackley 10d configuration",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the default ackley 10d configuration"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 34900,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "an analytics engine with registered analyzers",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "an analytics engine with registered analyzers"
+                },
+                {
+                  "value": "edu.swarmintelligence.mayfly.LocalMemoryAnalyzer@5f574cc2",
+                  "argumentInfo": {
+                    "argumentName": "analyzers",
+                    "formattedValue": "edu.swarmintelligence.mayfly.LocalMemoryAnalyzer@5f574cc2"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1076700,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a fixed random seed of",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a fixed random seed of"
+                },
+                {
+                  "value": "42",
+                  "argumentInfo": {
+                    "argumentName": "seed",
+                    "formattedValue": "42"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 704500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the algorithm is executed with the configured seed",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the algorithm is executed with the configured seed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 133573500,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "every active agent must have received at least one pbest update",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "every active agent must have received at least one pbest update"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 3116000,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 140924200
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 140924200
+    },
+    {
+      "className": "bdd.MayflyAlgorithmBddTest",
+      "testMethodName": "test_at1_reproducibility_constraint",
+      "description": "AT-1: Reproduzierbarkeit - Gleicher Seed liefert mathematisch identische gbest Fitnesswerte.",
+      "tagIds": [],
+      "explicitParameters": [],
+      "derivedParameters": [],
+      "scenarioCases": [
+        {
+          "caseNr": 1,
+          "steps": [
+            {
+              "name": "a standard mayfly algorithm instance",
+              "words": [
+                {
+                  "value": "Given",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a standard mayfly algorithm instance"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 70400,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the default ackley 10d configuration",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the default ackley 10d configuration"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 31600,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "a fixed random seed of",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "a fixed random seed of"
+                },
+                {
+                  "value": "42",
+                  "argumentInfo": {
+                    "argumentName": "seed",
+                    "formattedValue": "42"
+                  }
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 1084200,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the algorithm is executed with the configured seed",
+              "words": [
+                {
+                  "value": "When",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the algorithm is executed with the configured seed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 90588100,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "the algorithm is executed a second time with the same seed",
+              "words": [
+                {
+                  "value": "and",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "the algorithm is executed a second time with the same seed"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 73590800,
+              "depth": 0,
+              "parentFailed": false
+            },
+            {
+              "name": "both optimization runs must yield the exact same global best fitness",
+              "words": [
+                {
+                  "value": "Then",
+                  "isIntroWord": true
+                },
+                {
+                  "value": "both optimization runs must yield the exact same global best fitness"
+                }
+              ],
+              "status": "PASSED",
+              "durationInNanos": 83400,
+              "depth": 0,
+              "parentFailed": false
+            }
+          ],
+          "explicitArguments": [],
+          "derivedArguments": [],
+          "status": "SUCCESS",
+          "durationInNanos": 166678400
+        }
+      ],
+      "casesAsTable": false,
+      "durationInNanos": 166678400
+    }
+  ],
+  "tagMap": {
+    "org.junit.jupiter.api.Tag-global-memory": {
+      "fullType": "org.junit.jupiter.api.Tag",
+      "type": "Tag",
+      "value": "global-memory",
+      "description": "JUnit 5 Tag",
+      "color": "orange",
+      "href": ""
+    },
+    "org.junit.jupiter.api.Tag-convergence": {
+      "fullType": "org.junit.jupiter.api.Tag",
+      "type": "Tag",
+      "value": "convergence",
+      "description": "JUnit 5 Tag",
+      "color": "orange",
+      "href": ""
+    },
+    "org.junit.jupiter.api.Tag-agent-interaction": {
+      "fullType": "org.junit.jupiter.api.Tag",
+      "type": "Tag",
+      "value": "agent-interaction",
+      "description": "JUnit 5 Tag",
+      "color": "orange",
+      "href": ""
+    },
+    "org.junit.jupiter.api.Tag-local-memory": {
+      "fullType": "org.junit.jupiter.api.Tag",
+      "type": "Tag",
+      "value": "local-memory",
+      "description": "JUnit 5 Tag",
+      "color": "orange",
+      "href": ""
+    }
+  }
+}

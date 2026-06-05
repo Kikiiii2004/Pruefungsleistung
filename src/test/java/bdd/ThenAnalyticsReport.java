@@ -10,10 +10,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ThenAnalyticsReport extends Stage<ThenAnalyticsReport> {
 
-    @ExpectedScenarioState
+    @com.tngtech.jgiven.annotation.ExpectedScenarioState(resolution = com.tngtech.jgiven.annotation.ScenarioState.Resolution.NAME)
     protected MayflyResult firstResult;
 
-    @ExpectedScenarioState
+    @com.tngtech.jgiven.annotation.ExpectedScenarioState(resolution = com.tngtech.jgiven.annotation.ScenarioState.Resolution.NAME)
     protected MayflyResult secondResult;
 
     @ExpectedScenarioState

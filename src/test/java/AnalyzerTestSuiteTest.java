@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
 @DisplayName("Mayfly Behavioral Analyzer Telemetry Suite")
 class AnalyzerTestSuiteTest {
@@ -68,6 +69,31 @@ class AnalyzerTestSuiteTest {
 
             AnalyticsReport report = engine.generateReport(sharedConfig, FIXED_SEED);
             assertThat(report.byAnalyzer()).hasSize(2);
+        }
+
+        @Test
+        @DisplayName("Should produce an empty report when no analyzers are registered")
+        void testHappyPathEmptyEngineReport() {
+            AnalyticsReport report = engine.generateReport(sharedConfig, FIXED_SEED);
+            assertThat(report.byAnalyzer()).isEmpty();
+            assertThat(report.config()).isEqualTo(sharedConfig);
+        }
+
+        @Test
+        @DisplayName("Should handle events on empty analyzer list without throwing")
+        void testEventOnEmptyEngineEdgeCase() {
+            assertThatCode(() -> engine.onEvent(new IterationStarted(1, 0.9)))
+                    .doesNotThrowAnyException();
+        }
+
+        @Test
+        @DisplayName("Should handle NaN fitness values in events without breaking pipeline")
+        void testNumericalStabilityWithNaNFitness() {
+            GlobalMemoryAnalyzer a = new GlobalMemoryAnalyzer(Double.NaN);
+            engine.registerAnalyzer(a);
+            engine.onEvent(new IterationStarted(1, 0.9));
+            assertThatCode(() -> engine.generateReport(sharedConfig, FIXED_SEED))
+                    .doesNotThrowAnyException();
         }
     }
 

@@ -26,11 +26,10 @@ public class WhenAlgorithmRuns extends Stage<WhenAlgorithmRuns> {
     @ExpectedScenarioState
     protected long seed;
 
-    // Zustand für die Then-Stage bereitstellen
-    @ProvidedScenarioState
+    @com.tngtech.jgiven.annotation.ProvidedScenarioState(resolution = com.tngtech.jgiven.annotation.ScenarioState.Resolution.NAME)
     protected MayflyResult firstResult;
 
-    @ProvidedScenarioState
+    @com.tngtech.jgiven.annotation.ProvidedScenarioState(resolution = com.tngtech.jgiven.annotation.ScenarioState.Resolution.NAME)
     protected MayflyResult secondResult;
 
     @ProvidedScenarioState
