@@ -154,4 +154,31 @@ public class MarkdownReportGenerator {
         }
         return sparkline.toString();
     }
+
+    /**
+     * Overloaded generate method to optionally embed multi-run statistical aggregates.
+     */
+    public void generateWithStatistics(AnalyticsReport report, MultiRunStatistics stats, int runCount, Writer out) throws IOException {
+        // First, generate the standard single-run report structure
+        this.generate(report, out);
+
+        if (stats == null) return;
+
+        // Append the Statistical Aggregate Report Section
+        out.write("\n---\n\n");
+        out.write("## 🧮 Multi-Run Statistical Aggregate Report\n\n");
+        out.write("This section evaluates the convergence stability and stochastic robustness of the algorithm aggregated across **" + runCount + "** distinct optimization runs.\n\n");
+
+        out.write("| Statistical Metric | Value |\n");
+        out.write("| :--- | :--- |\n");
+        out.write("| **Mean Fitness (μ)** | " + String.format("%.10f", stats.getMean()) + " |\n");
+        out.write("| **Median Fitness** | " + String.format("%.10f", stats.getMedian()) + " |\n");
+        out.write("| **Standard Deviation (σ)** | " + String.format("%.10f", stats.getStdDev()) + " |\n");
+        out.write("| **25% Quantile (Q1)** | " + String.format("%.10f", stats.getQ25()) + " |\n");
+        out.write("| **75% Quantile (Q3)** | " + String.format("%.10f", stats.getQ75()) + " |\n");
+        out.write("| **95% Confidence Interval (CI)** | `[" + String.format("%.10f", stats.getCiLower()) + " , " + String.format("%.10f", stats.getCiUpper()) + "]` |\n\n");
+
+        out.write("> 💡 *Note: The confidence interval is calculated via Student's t-distribution reflecting the finite sample size boundary constraint.*\n");
+        out.flush();
+    }
 }

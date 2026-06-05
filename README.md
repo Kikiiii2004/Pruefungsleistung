@@ -59,3 +59,14 @@ Der `JsonExporter` überführt den `AnalyticsReport` reflexionsfrei ohne Verwend
   "required": ["generatedAt", "seed", "config", "byAnalyzer"]
 }
 ```
+
+### 4.3 Statistische Auswertung über mehrere Läufe
+
+Zur Validierung der stochastischen Robustheit des Mayfly-Algorithmus wurde ein statistisches Auswertungsmodul (`MultiRunStatistics`) implementiert. Da populationsbasierte Metaheuristiken stark von der Initialisierung abhängen, reicht die Betrachtung eines einzelnen Laufs nicht aus.
+
+#### Berechnungsmethodik:
+* **Mittelwert & Standardabweichung:** Berechnet über die Stichprobenvarianz ($n-1$) zur unverfälschten Schätzung der Grundgesamtheit.
+* **Quantile (Median, Q1, Q3):** Präzise Positionsbestimmung über lineare Interpolation zwischen den stochastischen Rängen.
+* **95 % Konfidenzintervall:** Berechnet anhand der Student-t-Verteilung, um dem endlichen Stichprobenumfang Rechnung zu tragen:
+  $$CI = \bar{x} \pm t_{crit, 0.05, df} \cdot \frac{s}{\sqrt{n}}$$
+  *Für $N=10$ Läufe ($df=9$) wird der exakte Tabellenwert $t_{crit} = 2.262$ herangezogen.*
