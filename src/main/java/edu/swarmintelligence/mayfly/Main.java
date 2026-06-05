@@ -23,7 +23,15 @@ public class Main {
 
         // 5. Report erzeugen
         AnalyticsReport report = engine.generateReport(cfg, seed);
-        System.out.println("Analytics Report generated at: " + report.generatedAt());
-        System.out.println("Analyzers executed: " + report.byAnalyzer().keySet());
+        System.out.println("Analytics Report generated.");
+
+        // 6. NEU: Markdown-Report in Datei schreiben
+        try (java.io.FileWriter fw = new java.io.FileWriter("Mayfly_Analytics_Report.md")) {
+            MarkdownReportGenerator mdGenerator = new MarkdownReportGenerator();
+            mdGenerator.generate(report, fw);
+            System.out.println("Markdown Report erfolgreich unter 'Mayfly_Analytics_Report.md' gespeichert!");
+        } catch (java.io.IOException ex) {
+            System.err.println("Fehler beim Schreiben des Markdown-Reports: " + ex.getMessage());
+        }
     }
 }

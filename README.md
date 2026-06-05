@@ -37,7 +37,7 @@ Der `JsonExporter` überführt den `AnalyticsReport` reflexionsfrei ohne Verwend
 
 ```json
 {
-  "$schema": "[https://json-schema.org/draft/2020-12/schema](https://json-schema.org/draft/2020-12/schema)",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "AnalyticsReport",
   "type": "object",
   "properties": {
