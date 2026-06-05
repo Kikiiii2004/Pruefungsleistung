@@ -1,7 +1,7 @@
 package bdd;
 
 import com.tngtech.jgiven.Stage;
-import com.tngtech.jgiven.lang.junit5.SimpleScenarioTest; // FIX: lang.junit5 statt integration.junit5
+import org.junit.jupiter.api.Test;
 import edu.swarmintelligence.mayfly.AnalyticsEngine;
 import edu.swarmintelligence.mayfly.MayflyAlgorithm;
 import edu.swarmintelligence.mayfly.MayflyConfig;
