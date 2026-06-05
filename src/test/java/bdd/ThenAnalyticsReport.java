@@ -89,4 +89,28 @@ public class ThenAnalyticsReport extends Stage<ThenAnalyticsReport> {
 
         return self();
     }
+
+    public ThenAnalyticsReport the_report_can_be_successfully_exported_to_json_and_csv() throws java.io.IOException {
+        assertThat(this.report).isNotNull();
+
+        // 1. JSON Export testen
+        java.io.StringWriter jsonWriter = new java.io.StringWriter();
+        JsonExporter jsonExporter = new JsonExporter();
+        jsonExporter.export(this.report, jsonWriter);
+        String jsonOutput = jsonWriter.toString();
+
+        assertThat(jsonOutput).contains("\"generatedAt\"", "\"seed\"", "\"config\"");
+        assertThat(jsonOutput.trim()).endsWith("}");
+
+        // 2. CSV Export testen
+        java.io.StringWriter csvWriter = new java.io.StringWriter();
+        CsvExporter csvExporter = new CsvExporter();
+        csvExporter.export(this.report, csvWriter);
+        String csvOutput = csvWriter.toString();
+
+        assertThat(csvOutput).startsWith("MetricType;Iteration;KeyIdentifier;Value");
+        assertThat(csvOutput).contains("META;0;Seed;");
+
+        return self();
+    }
 }
