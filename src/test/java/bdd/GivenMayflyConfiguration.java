@@ -7,6 +7,8 @@ import edu.swarmintelligence.mayfly.MayflyAlgorithm;
 import edu.swarmintelligence.mayfly.MayflyAnalyzer;
 import edu.swarmintelligence.mayfly.MayflyConfig;
 
+import java.util.List;
+
 public class GivenMayflyConfiguration extends Stage<GivenMayflyConfiguration> {
 
     @ProvidedScenarioState
@@ -20,6 +22,9 @@ public class GivenMayflyConfiguration extends Stage<GivenMayflyConfiguration> {
 
     @ProvidedScenarioState
     protected long seed;
+
+    @ProvidedScenarioState
+    protected List<Long> multipleSeeds;
 
     public GivenMayflyConfiguration a_standard_mayfly_algorithm_instance() {
         this.algorithm = new MayflyAlgorithm();
@@ -42,6 +47,15 @@ public class GivenMayflyConfiguration extends Stage<GivenMayflyConfiguration> {
 
     public GivenMayflyConfiguration a_fixed_random_seed_of(long seed) {
         this.seed = seed;
+        return self();
+    }
+
+    public GivenMayflyConfiguration a_list_of_distinct_random_seeds(int count) {
+        this.multipleSeeds = new java.util.ArrayList<>();
+        // Generiere deterministische, aber unterschiedliche Seeds basierend auf einer Basis
+        for (int i = 1; i <= count; i++) {
+            this.multipleSeeds.add((long) (i * 100));
+        }
         return self();
     }
 }

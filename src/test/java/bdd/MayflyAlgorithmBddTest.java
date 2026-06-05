@@ -98,4 +98,17 @@ class MayflyAlgorithmBddTest extends ScenarioTest<GivenMayflyConfiguration, When
 
         then().exactly_one_plateau_segment_must_be_detected();
     }
+
+    @Test
+    @Tag("convergence")
+    @Description("AT-7: Multi-Run-Stabilität - Aggregiert 10 Läufe mit verschiedenen Seeds und validiert, dass Mittelwert und Standardabweichung innerhalb stabiler Grenzen verbleiben.")
+    void test_at7_multi_run_statistical_stability() {
+        given().a_standard_mayfly_algorithm_instance()
+                .and().the_default_ackley_10d_configuration()
+                .and().a_list_of_distinct_random_seeds(10); // N = 10 Läufe
+
+        when().the_algorithm_is_executed_for_all_provided_seeds();
+
+        then().the_fitness_mean_and_standard_deviation_must_be_within_boundaries(1e-2, 5e-3);
+    }
 }

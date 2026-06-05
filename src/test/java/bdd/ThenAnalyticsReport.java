@@ -4,6 +4,8 @@ import com.tngtech.jgiven.Stage;
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import edu.swarmintelligence.mayfly.*;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ThenAnalyticsReport extends Stage<ThenAnalyticsReport> {
@@ -16,6 +18,9 @@ public class ThenAnalyticsReport extends Stage<ThenAnalyticsReport> {
 
     @ExpectedScenarioState
     protected AnalyticsReport report;
+
+    @ExpectedScenarioState
+    protected List<Double> multiRunFitnessResults;
 
     public ThenAnalyticsReport both_optimization_runs_must_yield_the_exact_same_global_best_fitness() {
         assertThat(this.firstResult.gbestFitness()).isEqualTo(this.secondResult.gbestFitness());
@@ -55,6 +60,33 @@ public class ThenAnalyticsReport extends Stage<ThenAnalyticsReport> {
     public ThenAnalyticsReport exactly_one_plateau_segment_must_be_detected() {
         ConvergenceResult convergenceRes = (ConvergenceResult) this.report.byAnalyzer().get("ConvergenceAnalyzer");
         assertThat(convergenceRes.plateauSegments()).hasSize(1);
+        return self();
+    }
+
+    public ThenAnalyticsReport the_fitness_mean_and_standard_deviation_must_be_within_boundaries(double maxExpectedMean, double maxExpectedStdDev) {
+        int n = this.multiRunFitnessResults.size();
+        assertThat(n).isGreaterThanOrEqualTo(10);
+
+        double sum = 0.0;
+        for (double fitness : this.multiRunFitnessResults) {
+            sum += fitness;
+        }
+        double mean = sum / n;
+
+        double varianceSum = 0.0;
+        for (double fitness : this.multiRunFitnessResults) {
+            varianceSum += (fitness - mean) * (fitness - mean);
+        }
+        double stdDev = Math.sqrt(varianceSum / n);
+
+        assertThat(mean)
+                .as("The aggregated final fitness mean (current: %f) exceeds the optimization bound!", mean)
+                .isLessThan(maxExpectedMean);
+
+        assertThat(stdDev)
+                .as("The optimization stability varies too heavily! StdDev (current: %f) exceeds limit.", stdDev)
+                .isLessThan(maxExpectedStdDev);
+
         return self();
     }
 }
