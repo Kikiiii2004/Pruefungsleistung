@@ -85,7 +85,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>0.8.13</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -160,7 +160,6 @@
         </plugins>
     </build>
 
-    <!-- Multi-Run Profile (Aufgabe 5.2) -->
     <profiles>
         <profile>
             <id>multi-run</id>

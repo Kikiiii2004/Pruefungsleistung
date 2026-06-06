@@ -65,7 +65,7 @@ public class ThenAnalyticsReport extends Stage<ThenAnalyticsReport> {
 
     public ThenAnalyticsReport the_fitness_mean_and_standard_deviation_must_be_within_boundaries(double maxExpectedMean, double maxExpectedStdDev) {
         int n = this.multiRunFitnessResults.size();
-        assertThat(n).isGreaterThanOrEqualTo(10);
+        assertThat(n).as("Es müssen mindestens 10 Läufe für die Statistik vorliegen!").isGreaterThanOrEqualTo(10);
 
         double sum = 0.0;
         for (double fitness : this.multiRunFitnessResults) {
@@ -87,13 +87,26 @@ public class ThenAnalyticsReport extends Stage<ThenAnalyticsReport> {
                 .as("The optimization stability varies too heavily! StdDev (current: %f) exceeds limit.", stdDev)
                 .isLessThan(maxExpectedStdDev);
 
+        try {
+            edu.swarmintelligence.mayfly.MultiRunStatistics stats = new edu.swarmintelligence.mayfly.MultiRunStatistics(this.multiRunFitnessResults);
+
+            try (java.io.FileWriter fw = new java.io.FileWriter("Mayfly_Analytics_Report.md")) {
+                edu.swarmintelligence.mayfly.MarkdownReportGenerator mdGenerator = new edu.swarmintelligence.mayfly.MarkdownReportGenerator();
+
+                mdGenerator.generateWithStatistics(null, stats, n, fw);
+
+                System.out.println("\n[JGiven-INFO] -> 'Mayfly_Analytics_Report.md' wurde erfolgreich im Projektverzeichnis erstellt!");
+            }
+        } catch (java.io.IOException e) {
+            System.err.println("[JGiven-ERROR] Fehler beim Schreiben des Markdown-Reports: " + e.getMessage());
+        }
+
         return self();
     }
 
     public ThenAnalyticsReport the_report_can_be_successfully_exported_to_json_and_csv() throws java.io.IOException {
         assertThat(this.report).isNotNull();
 
-        // 1. JSON Export testen
         java.io.StringWriter jsonWriter = new java.io.StringWriter();
         JsonExporter jsonExporter = new JsonExporter();
         jsonExporter.export(this.report, jsonWriter);
@@ -102,7 +115,6 @@ public class ThenAnalyticsReport extends Stage<ThenAnalyticsReport> {
         assertThat(jsonOutput).contains("\"generatedAt\"", "\"seed\"", "\"config\"");
         assertThat(jsonOutput.trim()).endsWith("}");
 
-        // 2. CSV Export testen
         java.io.StringWriter csvWriter = new java.io.StringWriter();
         CsvExporter csvExporter = new CsvExporter();
         csvExporter.export(this.report, csvWriter);
