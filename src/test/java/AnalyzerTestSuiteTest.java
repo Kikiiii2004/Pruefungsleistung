@@ -22,7 +22,6 @@ class AnalyzerTestSuiteTest {
 
     @BeforeAll
     static void setupGlobalFixtures() {
-        // Heavy or immutable test fixture shared across all nested test domains
         sharedConfig = MayflyConfig.ackley10D();
     }
 
@@ -72,28 +71,30 @@ class AnalyzerTestSuiteTest {
         }
 
         @Test
-        @DisplayName("Should produce an empty report when no analyzers are registered")
+        @DisplayName("Should produce a report with correct config and timestamp when no analyzers are registered")
         void testHappyPathEmptyEngineReport() {
             AnalyticsReport report = engine.generateReport(sharedConfig, FIXED_SEED);
             assertThat(report.byAnalyzer()).isEmpty();
             assertThat(report.config()).isEqualTo(sharedConfig);
+            assertThat(report.generatedAt()).isNotNull();
         }
 
         @Test
-        @DisplayName("Should handle events on empty analyzer list without throwing")
+        @DisplayName("Should not throw any exception when firing events on an engine with no registered analyzers")
         void testEventOnEmptyEngineEdgeCase() {
             assertThatCode(() -> engine.onEvent(new IterationStarted(1, 0.9)))
                     .doesNotThrowAnyException();
         }
 
         @Test
-        @DisplayName("Should handle NaN fitness values in events without breaking pipeline")
-        void testNumericalStabilityWithNaNFitness() {
-            GlobalMemoryAnalyzer a = new GlobalMemoryAnalyzer(Double.NaN);
+        @DisplayName("Should handle NaN inertia weight in IterationStarted without breaking the pipeline")
+        void testNumericalStabilityWithNaNInertiaWeight() {
+            GlobalMemoryAnalyzer a = new GlobalMemoryAnalyzer(1e-5);
             engine.registerAnalyzer(a);
-            engine.onEvent(new IterationStarted(1, 0.9));
-            assertThatCode(() -> engine.generateReport(sharedConfig, FIXED_SEED))
-                    .doesNotThrowAnyException();
+            assertThatCode(() -> {
+                engine.onEvent(new IterationStarted(1, Double.NaN));
+                engine.generateReport(sharedConfig, FIXED_SEED);
+            }).doesNotThrowAnyException();
         }
     }
 
