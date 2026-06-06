@@ -253,12 +253,12 @@ The `JsonExporter` serializes `AnalyticsReport` natively without third-party lib
 
 `MultiRunStatistics` computes the following metrics over N independent runs:
 
-| Metric | Formula |
-| :--- | :--- |
-| Mean | $\bar{x} = \frac{1}{n} \sum x_i$ |
-| Standard Deviation | $s = \sqrt{\frac{\sum(x_i - \bar{x})^2}{n-1}}$ (sample variance) |
-| Quantiles | Linear interpolation between sorted ranks |
-| 95% CI | $\bar{x} \pm t_{\text{crit}, 0.05, n-1} \cdot \frac{s}{\sqrt{n}}$ |
+| Metric             | Formula                                                           |
+|:-------------------|:------------------------------------------------------------------|
+| Mean               | $\bar{x} = \frac{1}{n} \sum x_i$                                  |
+| Standard Deviation | $s = \sqrt{\frac{\sum(x_i - \bar{x})^2}{n-1}}$ (sample variance)  |
+| Quantiles          | Linear interpolation between sorted ranks                         |
+| 95% CI             | $\bar{x} \pm t_{\text{crit}, 0.05, n-1} \cdot \frac{s}{\sqrt{n}}$ |
 
 For $N=10$ runs ($df=9$): $t_{\text{crit}} = 2.262$
 
@@ -281,9 +281,9 @@ mvn clean verify
 
 Tag assignments visible in the report:
 
-| Tag | Scenarios |
-| :--- | :--- |
-| `global-memory` | AT-3 |
-| `agent-interaction` | AT-4 |
-| `local-memory` | AT-5 |
-| `convergence` | AT-6, AT-7 |
+| Tag                 | Scenarios  |
+|:--------------------|:-----------|
+| `global-memory`     | AT-3       |
+| `agent-interaction` | AT-4       |
+| `local-memory`      | AT-5       |
+| `convergence`       | AT-6, AT-7 |

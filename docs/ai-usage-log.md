@@ -6,12 +6,12 @@ Dieses Dokument dokumentiert chronologisch und kritisch den Einsatz von künstli
 
 ## 1. Tool-Identifikation
 
-| Eigenschaft | Details |
-| :--- | :--- |
-| **KI-Modell** | Claude Sonnet 4.6 |
-| **Entwickler** | Anthropic PBC |
-| **Schnittstelle** | Claude.ai Web UI (chat.claude.ai) |
-| **Nutzungszeitraum** | 05. Juni 2026 – 06. Juni 2026 |
+| Eigenschaft          | Details                           |
+|:---------------------|:----------------------------------|
+| **KI-Modell**        | Claude Sonnet 4.6                 |
+| **Entwickler**       | Anthropic PBC                     |
+| **Schnittstelle**    | Claude.ai Web UI (chat.claude.ai) |
+| **Nutzungszeitraum** | 05. Juni 2026 – 06. Juni 2026     |
 
 ---
 
@@ -19,29 +19,29 @@ Dieses Dokument dokumentiert chronologisch und kritisch den Einsatz von künstli
 
 ### Aufgabe 3 — JGiven-Akzeptanztests
 
-| ID | Zeitstempel | Ziel | Prompt (gekürzt) | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **P-01** | 2026-06-05 10:12 | 3.1 BDD-Szenarien | *„Kannst du JGiven-Akzeptanztests für den Mayfly-Algorithmus schreiben? Mindestens 6 Szenarien AT-1 bis AT-6 in Given/When/Then-Form mit @Description..."* | ✅ **ERFOLGREICH** |
+| ID       | Zeitstempel      | Ziel                  | Prompt (gekürzt)                                                                                                                                                                        | Status            |
+|:---------|:-----------------|:----------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
+| **P-01** | 2026-06-05 10:12 | 3.1 BDD-Szenarien     | *„Kannst du JGiven-Akzeptanztests für den Mayfly-Algorithmus schreiben? Mindestens 6 Szenarien AT-1 bis AT-6 in Given/When/Then-Form mit @Description..."*                              | ✅ **ERFOLGREICH** |
 | **P-02** | 2026-06-05 10:45 | 3.2 Stage-Architektur | *„Schreib mir GivenMayflyConfiguration, WhenAlgorithmRuns und ThenAnalyticsReport als wiederverwendbare JGiven-Stage-Klassen mit @ProvidedScenarioState und @ExpectedScenarioState..."* | ✅ **ERFOLGREICH** |
-| **P-03** | 2026-06-05 11:20 | 3.4 Multi-Run | *„Ergänze einen AT-7 Multi-Run-Akzeptanztest mit N=10 Seeds, der Mittelwert und Standardabweichung der finalen Fitness prüft..."* | ✅ **ERFOLGREICH** |
+| **P-03** | 2026-06-05 11:20 | 3.4 Multi-Run         | *„Ergänze einen AT-7 Multi-Run-Akzeptanztest mit N=10 Seeds, der Mittelwert und Standardabweichung der finalen Fitness prüft..."*                                                       | ✅ **ERFOLGREICH** |
 
 ### Aufgabe 4 — Reporting, Export & Statistik
 
-| ID | Zeitstempel | Ziel | Prompt (gekürzt) | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **P-04** | 2026-06-05 13:00 | 4.1 Interface | *„Implementiere AnalyticsExporter mit CsvExporter und JsonExporter ohne Drittbibliotheken. Das Interface deklariert void export(AnalyticsReport report, Writer out) throws IOException..."* | ✅ **ERFOLGREICH** |
-| **P-05** | 2026-06-05 13:30 | 4.1 Repo-Zugriff | *„Kannst du den Code direkt zu meinem Projekt schreiben? Repository: https://github.com/Kikiiii2004/Pruefungsleistung.git"* | ❌ **FEHLERHAFT** — Repo nicht zugänglich ohne Git-Clone |
-| **P-06** | 2026-06-05 14:00 | 4.1 Kontext-Injektion | *[Vollständiger Upload aller Java-Quelldateien als Datei-Anhänge zur Kontext-Bereitstellung]* | ✅ **ERFOLGREICH** |
-| **P-07** | 2026-06-05 15:00 | 4.2 Markdown-Generator | *„Implementiere MarkdownReportGenerator mit: Header-Sektion, Metriktabellen pro Analyzer, Unicode-Sparkline (U+2581–U+2588), Mermaid-Diagramm für Plateaus oder Konvergenzkurve..."* | ✅ **ERFOLGREICH** |
-| **P-08** | 2026-06-05 15:45 | 4.3 Statistik | *„Implementiere MultiRunStatistics: Mittelwert, Median, Std.-Abw. (Stichprobenvarianz), Q25/Q75, 95%-Konfidenzintervall via Student-t-Tabellenwerten. Für N=10 muss t_crit=2.262 verwendet werden..."* | ✅ **ERFOLGREICH** |
+| ID       | Zeitstempel      | Ziel                   | Prompt (gekürzt)                                                                                                                                                                                       | Status                                                  |
+|:---------|:-----------------|:-----------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------|
+| **P-04** | 2026-06-05 13:00 | 4.1 Interface          | *„Implementiere AnalyticsExporter mit CsvExporter und JsonExporter ohne Drittbibliotheken. Das Interface deklariert void export(AnalyticsReport report, Writer out) throws IOException..."*            | ✅ **ERFOLGREICH**                                       |
+| **P-05** | 2026-06-05 13:30 | 4.1 Repo-Zugriff       | *„Kannst du den Code direkt zu meinem Projekt schreiben? Repository: https://github.com/Kikiiii2004/Pruefungsleistung.git"*                                                                            | ❌ **FEHLERHAFT** — Repo nicht zugänglich ohne Git-Clone |
+| **P-06** | 2026-06-05 14:00 | 4.1 Kontext-Injektion  | *[Vollständiger Upload aller Java-Quelldateien als Datei-Anhänge zur Kontext-Bereitstellung]*                                                                                                          | ✅ **ERFOLGREICH**                                       |
+| **P-07** | 2026-06-05 15:00 | 4.2 Markdown-Generator | *„Implementiere MarkdownReportGenerator mit: Header-Sektion, Metriktabellen pro Analyzer, Unicode-Sparkline (U+2581–U+2588), Mermaid-Diagramm für Plateaus oder Konvergenzkurve..."*                   | ✅ **ERFOLGREICH**                                       |
+| **P-08** | 2026-06-05 15:45 | 4.3 Statistik          | *„Implementiere MultiRunStatistics: Mittelwert, Median, Std.-Abw. (Stichprobenvarianz), Q25/Q75, 95%-Konfidenzintervall via Student-t-Tabellenwerten. Für N=10 muss t_crit=2.262 verwendet werden..."* | ✅ **ERFOLGREICH**                                       |
 
 ### Aufgabe 5 — Dokumentation & KI-Reflexion
 
-| ID | Zeitstempel | Ziel | Prompt (gekürzt) | Status |
-| :--- | :--- | :--- | :--- | :--- |
-| **P-09** | 2026-06-06 09:00 | 5.1 Architektur | *„Erstelle docs/architecture.md mit: Mermaid-Klassendiagramm, Sequenzdiagramm eines Iterationsschritts mit Listener-Aufrufen, ADRs für mindestens 3 Architekturentscheidungen..."* | ✅ **ERFOLGREICH** |
-| **P-10** | 2026-06-06 09:45 | 5.2 README | *„Erstelle README.md mit: Build-Befehlen für Linux und Windows, JDK-Verifikationshinweis, Verzeichnisstruktur, Coverage-Report-Pfad, JGiven-Report-Pfad, Hinweis auf mvn -Pmulti-run verify..."* | ✅ **ERFOLGREICH** |
-| **P-11** | 2026-06-06 10:30 | pom.xml Korrektur | *„Die pom.xml verwendet noch Java 21 statt 25. Korrigiere auf maven.compiler.release=25 und füge das multi-run Maven-Profil mit exec-maven-plugin hinzu..."* | ✅ **ERFOLGREICH** |
+| ID       | Zeitstempel      | Ziel              | Prompt (gekürzt)                                                                                                                                                                                 | Status            |
+|:---------|:-----------------|:------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------|
+| **P-09** | 2026-06-06 09:00 | 5.1 Architektur   | *„Erstelle docs/architecture.md mit: Mermaid-Klassendiagramm, Sequenzdiagramm eines Iterationsschritts mit Listener-Aufrufen, ADRs für mindestens 3 Architekturentscheidungen..."*               | ✅ **ERFOLGREICH** |
+| **P-10** | 2026-06-06 09:45 | 5.2 README        | *„Erstelle README.md mit: Build-Befehlen für Linux und Windows, JDK-Verifikationshinweis, Verzeichnisstruktur, Coverage-Report-Pfad, JGiven-Report-Pfad, Hinweis auf mvn -Pmulti-run verify..."* | ✅ **ERFOLGREICH** |
+| **P-11** | 2026-06-06 10:30 | pom.xml Korrektur | *„Die pom.xml verwendet noch Java 21 statt 25. Korrigiere auf maven.compiler.release=25 und füge das multi-run Maven-Profil mit exec-maven-plugin hinzu..."*                                     | ✅ **ERFOLGREICH** |
 
 ---
 

@@ -8,7 +8,7 @@ import java.util.Map;
 public class MarkdownReportGenerator {
 
     // Unicode block characters from U+2581 to U+2588 for sparkline rendering
-    private static final char[] SPARKLINE_BLOCKS = {' ', '▂', '▃', '▄', '▅', '▆', '▇', '█'};
+    private static final char[] SPARKLINE_BLOCKS = {'▁', '▂', '▃', '▄', '▅', '▆', '▇', '█'};
 
     public void generate(AnalyticsReport report, Writer out) throws IOException {
         if (report == null || out == null) return;
